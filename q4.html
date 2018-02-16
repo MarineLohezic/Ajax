@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Ajax q4</title>
+    </head>
+    <body>
+    	<script>
+
+            // Premiere façon de faire
+    		//Constructeur
+    		function Entry(name, phone){
+    			this.name=name;
+    			this.phone= phone;
+    		}
+
+    		Entry.prototype.display=function(){
+    			console.log(this.name+"\t"+this.phone);
+    		}
+
+            let tableau=Array();
+            let i=0;
+            let nom = prompt("Veuillez entrer le nom : ","");
+            let numTel= prompt( "Veuillez entrer le numero de telephone : ","");
+            while((nom != "") &&(nom != null) && (numTel != "") &&(numTel != null)){
+            	let entree = new Entry(nom,numTel);
+                tableau[i]= entree;
+                i++;
+                nom= prompt("Veuillez entrer votre nom","");
+                numTel= prompt( "Veuillez entrer le numero de telephone : ","");
+            }
+
+            tableau.forEach(function(element) {
+				element.display();
+			});
+
+            console.log("tri");
+			tableau.sort(function(a,b){return a.name>b.name?1:-1});
+			tableau.forEach(function(element) {
+				element.display();
+			});
+
+            // Deuxieme facon de faire
+            /*class Entry{
+                constructor(name,phone){
+                    this.name=name;
+                    this.phone=phone;
+                }
+                display(){
+                    console.log(this.name+"\t"+this.phone);
+                }
+            }
+
+            let tableau=Array();
+            let i=0;
+            let nom = prompt("Veuillez entrer le nom : ","");
+            let numTel= prompt( "Veuillez entrer le numero de telephone : ","");
+            while((nom != "") &&(nom != null) && (numTel != "") &&(numTel != null)){
+                let entree = new Entry(nom,numTel);
+                tableau[i]= entree;
+                i++;
+                nom= prompt("Veuillez entrer votre nom","");
+                numTel= prompt( "Veuillez entrer le numero de telephone : ","");
+            }
+
+            tableau.forEach(function(element) {
+                element.display();
+            });
+
+            console.log("tri");
+            tableau.sort(function(a,b){return a.name>b.name?1:-1});
+            tableau.forEach(function(element) {
+                element.display();
+            });*/
+
+            // Troisieme façon de faire 
+
+           /* let tableau=Array();
+            let i=0;
+            let nom = prompt("Veuillez entrer le nom : ","");
+            let numTel= prompt( "Veuillez entrer le numero de telephone : ","");
+            while((nom != "") &&(nom != null) && (numTel != "") &&(numTel != null)){
+                let entree ={
+                    name:nom, phone: numTel,
+                    display: function(){
+                        console.log(this.name+"\t"+this.phone);
+                    }
+                };
+                tableau[i]= entree;
+                i++;
+                nom= prompt("Veuillez entrer votre nom","");
+                numTel= prompt( "Veuillez entrer le numero de telephone : ","");
+            }
+
+            tableau.forEach(function(element) {
+                element.display();
+            });
+
+            console.log("tri");
+            tableau.sort(function(a,b){return a.name>b.name?1:-1});
+            tableau.forEach(function(element) {
+                element.display();
+            });*/
+
+            //Quatrieme façon de faire
+
+     /*     var rep= new Map(); //Rep.telephonique
+            let nom = prompt("Veuillez entrer le nom : ","");
+            let numTel= prompt( "Veuillez entrer le numero de telephone : ","");
+            while((nom != "") &&(nom != null) && (numTel != "") &&(numTel != null)){
+                rep.set(nom,numTel);
+                nom= prompt("Veuillez entrer votre nom","");
+                numTel= prompt( "Veuillez entrer le numero de telephone : ","");
+            }
+
+            for( var[cle,valeur] of rep){
+                console.log(cle +"\t"+valeur);
+            }*/
+    	</script>
+    </body>
+</html>

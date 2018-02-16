@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Ajax q2</title>
+    </head>
+    <body>
+    	<script>
+    		"use strict";
+    		let tableau=Array();
+    		let i=0;
+    		let nom= prompt("Veuillez entrer votre nom","");
+    		while((nom != "") &&(nom != null)){
+    			tableau[i]=nom;
+    			i++;
+    			nom= prompt("Veuillez entrer votre nom","");
+    		}
+    		tableau.sort();
+    		console.log(tableau);
+    	</script>
+    </body>
+</html>
