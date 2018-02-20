@@ -3,7 +3,6 @@ function getRandom() {
 }
 
 function positionFleur(e){
-
 	var numero= getRandom().toString();
 	var img = document.createElement("img");
 	body.appendChild(img);
@@ -25,7 +24,6 @@ function positionFleur(e){
 	if (numero == 4){
 		img.draggable="true";
 	}
-	console.log()
 }
 
 var body = document.getElementById("body");
