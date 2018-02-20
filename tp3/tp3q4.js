@@ -65,13 +65,13 @@ function repertoire(){
 
 
 function onclickAdd(e){
-	add.style="display:none;";
+	document.getElementById("Add").style="display:none;";
 	document.getElementById("addPlace").style="display:block;";
 }
 
 function onclickEnvoyer(){
 	var ajout= new XMLHttpRequest();
-	add.style="display:block;";
+	document.getElementById("Add").style="display:block;";
 	document.getElementById("addPlace").style="display:none;";
 
 	ajout.open('PUT',getServeur()+'telephone.php?repertoire',true);
