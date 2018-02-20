@@ -1,16 +1,20 @@
 function repertoire(){
-	entete.open('GET','http://192.168.2.5/ajax/telephone.php?entete',true);
+	var entete= new XMLHttpRequest();
+	var donnees= new XMLHttpRequest();
+
+	var enteteTab=Array();
+	entete.open('GET',getServeur()+'telephone.php?entete',true);
 	entete.onload=function(){
 		if(entete.status==200){
 			enteteTab=JSON.parse(entete.responseText);
-			while (thead_tr.firstChild) {
-	  			thead_tr.removeChild(thead_tr.firstChild);
+			while (document.getElementById("thead_tr").firstChild) {
+	  			document.getElementById("thead_tr").removeChild(document.getElementById("thead_tr").firstChild);
 			}
 			enteteTab.forEach(function(element){
 				var th = document.createElement("th");
 				var nom = document.createTextNode(element);
 	    		th.appendChild(nom);
-	    		thead_tr.appendChild(th);
+	    		document.getElementById("thead_tr").appendChild(th);
 			});
 		}else{
 			console.log(entete.status);
@@ -18,12 +22,12 @@ function repertoire(){
 	};
 	entete.send(null);
 
-	donnees.open('GET','http://192.168.2.5/ajax/telephone.php?repertoire',true);
+	donnees.open('GET',getServeur()+'telephone.php?repertoire',true);
 	donnees.onload=function(){
 		if(donnees.status==200){
-			donneesTab= JSON.parse(donnees.responseText);
-			while (tbody.firstChild) {
-	  			tbody.removeChild(tbody.firstChild);
+			var donneesTab= JSON.parse(donnees.responseText);
+			while (document.getElementById("tbody").firstChild) {
+	  			document.getElementById("tbody").removeChild(document.getElementById("tbody").firstChild);
 			}
 			donneesTab.forEach(function(element){
 				var tr = document.createElement("tr");
@@ -36,7 +40,8 @@ function repertoire(){
 				var button = document.createElement("button");
 				var t = document.createTextNode("Suppr");
 				button.onclick=function(){
-					del.open('DELETE','http://192.168.2.5/ajax/telephone.php?repertoire',true);
+					var del= new XMLHttpRequest();
+					del.open('DELETE',getServeur()+'telephone.php?repertoire',true);
 					del.onload=function(){
 						if(del.status==204){
 							repertoire();
@@ -61,16 +66,15 @@ function repertoire(){
 
 function onclickAdd(e){
 	add.style="display:none;";
-	addPlace.style="display:block;";
+	document.getElementById("addPlace").style="display:block;";
 }
 
 function onclickEnvoyer(){
+	var ajout= new XMLHttpRequest();
 	add.style="display:block;";
-	addPlace.style="display:none;";
-	console.log(inputNom.value);
-	console.log(inputNumero.value);
-	var jsonAjout= '{"nom":"'+inputNom.value+'","numero":"'+inputNumero.value+'"}'
-	ajout.open('PUT','http://192.168.2.5/ajax/telephone.php?repertoire',true);
+	document.getElementById("addPlace").style="display:none;";
+
+	ajout.open('PUT',getServeur()+'telephone.php?repertoire',true);
 	ajout.onload=function(){
 		if(ajout.status==201){
 			repertoire();
@@ -78,30 +82,19 @@ function onclickEnvoyer(){
 			console.log(ajout.status);
 		}
 	};
-	ajout.send(jsonAjout);
+	ajout.send('{"nom":"'+ document.getElementById("nom").value+'","numero":"'+document.getElementById("numero").value+'"}');
+}
+function init(){
+	document.getElementById("actualiser").onclick=repertoire;
+	document.getElementById("Add").onclick=onclickAdd;
+	document.getElementById("envoyer").onclick= onclickEnvoyer;
 }
 
-var actu = document.getElementById("actualiser");
-actu.onclick=repertoire;
+function getServeur(){
+	var serveur= 'http://192.168.2.5/ajax/';
+	return serveur;
+}
 
-var inputNom = document.getElementById("nom");
-var inputNumero = document.getElementById("numero");
-var addPlace = document.getElementById("addPlace");
-var add = document.getElementById("Add");
-add.onclick=onclickAdd;
-
-var envoyer = document.getElementById("envoyer");
-envoyer.onclick= onclickEnvoyer;
-
-var donneesTab=Array();
-var enteteTab=Array();
-var entete= new XMLHttpRequest();
-var donnees= new XMLHttpRequest();
-var ajout= new XMLHttpRequest();
-var del= new XMLHttpRequest();
-var thead_tr = document.getElementById("thead_tr");
-var tbody = document.getElementById("tbody");
-
+init();
 repertoire();
-
 setInterval(function(){ repertoire(); }, 120000);
