@@ -31,12 +31,9 @@ body.onclick=positionFleur;
 
 body.addEventListener('dragover', function(e) {
     e.preventDefault(); // Annule l'interdiction de drop
-    console.log("coucou");
-   
 });
 
 body.addEventListener('drop',function(e){
-	console.log("titi");
 	var img= document.getElementById("drag");
     var dx = e.clientX-(img.width/2);
 	var dy = e.clientY-img.height+20;
