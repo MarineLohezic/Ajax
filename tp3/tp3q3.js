@@ -33,6 +33,22 @@ function repertoire(){
 		    		th.appendChild(donnee);
 		    		tr.appendChild(th);
 				});
+				var button = document.createElement("button");
+				var t = document.createTextNode("Suppr");
+				button.onclick=function(){
+					del.open('DELETE','http://192.168.2.5/ajax/telephone.php?repertoire',true);
+					del.onload=function(){
+						if(del.status==204){
+							repertoire();
+						}else{
+							console.log(ajout.status);
+						}
+					};
+					var jsonDel= '{"nom":"'+element["nom"]+'"}'
+					del.send(jsonDel);
+				};
+				button.appendChild(t);
+				tr.appendChild(button);
 				tbody.appendChild(tr);
 			});
 		}else{
@@ -79,6 +95,7 @@ var enteteTab=Array();
 var entete= new XMLHttpRequest();
 var donnees= new XMLHttpRequest();
 var ajout= new XMLHttpRequest();
+var del= new XMLHttpRequest();
 var thead_tr = document.getElementById("thead_tr");
 var tbody = document.getElementById("tbody");
 
